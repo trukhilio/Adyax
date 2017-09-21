@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-import Button from '../components/button/index';
+import { bindActionCreators } from 'redux';
+import * as mainActions from '../actions/mainAction';
+import Form from './form';
 
 class App extends Component {
     render(){
         const { main } = this.props;
+        const { addItemRequest, cancelItemRequest, addItemSuccess } = this.props.mainActions;
         return(
             <div>
-                <Button>Hello</Button>
+                <Form
+                    addNewItem={main.addNewItem}
+                    addItemRequest={addItemRequest}
+                    addItemSuccess={addItemSuccess}
+                    cancelItemRequest={cancelItemRequest}
+                />
             </div>
 
         )
@@ -21,12 +28,10 @@ function mapStateToProps (state) {
     }
 }
 
-// function mapDispatchToProps(dispatch){
-//     return {
-//         mainActions: bindActionCreators(mainActions, dispatch)
-//     }
-// }
+function mapDispatchToProps(dispatch){
+    return {
+        mainActions: bindActionCreators(mainActions, dispatch)
+    }
+}
 
-export default connect(mapStateToProps)(App);
-    // , mapDispatchToProps)
-
+export default connect(mapStateToProps, mapDispatchToProps)(App);
