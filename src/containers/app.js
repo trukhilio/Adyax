@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as mainActions from '../actions/mainAction';
-import Form from './form';
+import * as cardActions from '../actions/cardAction';
+import NewCard from "./newCard";
+import Button from "../components/button/index";
+import CardContainer from "./cardsContainer";
 
 class App extends Component {
     render(){
         const { main } = this.props;
-        const { addItemRequest, cancelItemRequest, addItemSuccess } = this.props.mainActions;
+        const { cancelCardSave, getCards, addCardSave, deleteCard, changeCard, sum} = this.props.cardActions;
         return(
             <div>
-                <Form
-                    addNewItem={main.addNewItem}
-                    addItemRequest={addItemRequest}
-                    addItemSuccess={addItemSuccess}
-                    cancelItemRequest={cancelItemRequest}
+                <NewCard
+                    itemArr={main.itemArr}
+                    addNewCard={main.addNewCard}
+                    fetching={main.fetching}
+                    addCardSave={addCardSave}
+                    getCards={getCards}
+                    cancelCardSave={cancelCardSave}
+                />
+                <CardContainer
+                    basket={main.basket}
+                    itemArr={main.itemArr}
+                    deleteCard={deleteCard}
+                    changeCard={changeCard}
+                    sum={sum}
                 />
             </div>
 
@@ -30,7 +41,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch){
     return {
-        mainActions: bindActionCreators(mainActions, dispatch)
+        cardActions: bindActionCreators(cardActions, dispatch)
     }
 }
 

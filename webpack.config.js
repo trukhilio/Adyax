@@ -5,6 +5,7 @@ let NpmInstallPlugin = require('npm-install-webpack-plugin');
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     entry: [
+        'whatwg-fetch',
         'webpack-hot-middleware/client',
         'babel-polyfill',
         'react-hot-loader/patch',

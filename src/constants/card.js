@@ -1,0 +1,9 @@
+export const ADD_CARD_REQUEST = 'ADD_CARD_REQUEST';
+export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
+export const ADD_CARD_SAVE = 'ADD_CARD_SAVE';
+export const ADD_CARD_CANCELED = 'ADD_CARD_CANCELED';
+export const ADD_CARD_FAIL = 'ADD_CARD_FAIL';
+
+export const QUANTITY = 'QUANTITY';
+export const CHANGE_CARD = 'CHANGE_CARD';
+export const DELETE_CARD = 'DELETE_CARD';

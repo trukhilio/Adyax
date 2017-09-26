@@ -13,10 +13,8 @@ class Form extends Component{
                         onSubmit={addItemSuccess}
                     />
                     :
-                    <Button
-                        onClick={addItemRequest}
-                    >
-                        Add new item
+                    <Button onClick={addItemRequest}>
+                        Create new item
                     </Button>
                 }
             </div>
