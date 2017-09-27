@@ -27,7 +27,11 @@ class MainPage extends Component{
 
                     </h3>
                 </header>
-                {this.props.children}
+                <div className={s.container}>
+                    <div className={s.cardContainer}>
+                        {this.props.children}
+                    </div>
+                </div>
                 <footer className={s.footer}>
                         <p className={s.footerText}>
                             Adyax specializes in working with multi-national,

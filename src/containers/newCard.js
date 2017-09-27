@@ -8,18 +8,26 @@ class NewCard extends Component {
     render(){
         const { itemArr, addNewCard, fetching, addCardSave, getCards, cancelCardSave } = this.props;
         return(
-            <div>
+            <div className={s.container}>
                 { addNewCard ?
-                        fetching ?
-                            <div>Downloading...</div>
-                            :
-                            <CardForm
-                                itemArr={itemArr}
-                                cancelCardSave={cancelCardSave}
-                                addCardSave={addCardSave}
-                            />
+                    fetching ?
+                        <div className={s.spinner}>
+                            <div className={s.rect1}></div>
+                            <div className={s.rect2}></div>
+                            <div className={s.rect3}></div>
+                            <div className={s.rect4}></div>
+                            <div className={s.rect5}></div>
+                        </div>
+                        :
+                        <CardForm
+                            itemArr={itemArr}
+                            cancelCardSave={cancelCardSave}
+                            addCardSave={addCardSave}
+                        />
                     :
-                    <Button onClick={getCards}>
+                    <Button
+                        className={s.buttonAdd}
+                        onClick={getCards}>
                         Add a card
                     </Button>
                 }

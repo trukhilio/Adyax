@@ -1,1 +1,115 @@
+.container{
+  margin-left: 76px;
+}
+.formMain{
+  display: flex;
+  flex-direction: row;
+}
+.buttonAdd{
+  width: 242px;
+  height: 51px;
+  font-family: WorkSans;
+  font-size: 22px;
+  background-color: transparent;
+  border: 2px solid #dcdcdc;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+  &:hover{
+    opacity: 0.8
+  }
+}
+.buttonSave, .buttonCancel{
+  width: 80px;
+  height: 51px;
+  font-family: WorkSans;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #4d4d4d;
+  padding: 0;
+  &:hover{
+    opacity: 0.8;
+  }
+}
+.buttonSave{
+  border-right: 1px solid #dcdcdc;;
+}
+.spinner {
+  width: 242px;
+  height: 51px;
+  text-align: center;
+  font-size: 10px;
+}
 
+.spinner > div {
+  background-color: #333;
+  margin-right: 5px;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  animation-delay: -0.8s;
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+  }
+  20% {
+       transform: scaleY(1.0);
+     }
+}
+.form{
+  width: 242px;
+  height: 49px;
+  position: relative;
+  border-radius: 2px;
+  border: solid 1px #dcdcdc;
+  overflow: hidden;
+  &:after{
+    content: '\25bc';
+    position: absolute;
+    right: 10px;
+    top: 19px;
+    z-index: 1;
+    text-align: center;
+    width: 10%;
+    height: 100%;
+    font-size: 15px;
+    color: #262626;
+    pointer-events: none;
+    opacity: 0.56;
+  }
+}
+select::-ms-expand {
+  display: none;
+}
+.formItem{
+  width: 100%;
+  height: 51px;
+  font-family: WorkSans;
+  font-size: 16px;
+  line-height: 1.64;
+  color: #4d4d4d;
+  border: 0;
+  outline: none;
+  padding: 14px 0 14px 20px;
+  appearance: none;
+}
