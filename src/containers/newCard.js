@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Button from '../components/button/index';
 import CardForm from '../components/formCard/index';
-
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from '../styles/newCard.scss';
 
 class NewCard extends Component {
     render(){
@@ -27,4 +28,4 @@ class NewCard extends Component {
     }
 }
 
-export default NewCard;
+export default withStyles(s)(NewCard);

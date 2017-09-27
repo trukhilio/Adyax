@@ -3,32 +3,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as cardActions from '../actions/cardAction';
 import NewCard from "./newCard";
-import Button from "../components/button/index";
 import CardContainer from "./cardsContainer";
+import MainPage from './mainPage';
 
 class App extends Component {
     render(){
         const { main } = this.props;
         const { cancelCardSave, getCards, addCardSave, deleteCard, changeCard, sum} = this.props.cardActions;
         return(
-            <div>
-                <NewCard
-                    itemArr={main.itemArr}
-                    addNewCard={main.addNewCard}
-                    fetching={main.fetching}
-                    addCardSave={addCardSave}
-                    getCards={getCards}
-                    cancelCardSave={cancelCardSave}
-                />
-                <CardContainer
-                    basket={main.basket}
-                    itemArr={main.itemArr}
-                    deleteCard={deleteCard}
-                    changeCard={changeCard}
-                    sum={sum}
-                />
-            </div>
-
+                <MainPage>
+                    <NewCard
+                        itemArr={main.itemArr}
+                        addNewCard={main.addNewCard}
+                        fetching={main.fetching}
+                        addCardSave={addCardSave}
+                        getCards={getCards}
+                        cancelCardSave={cancelCardSave}
+                    />
+                    <CardContainer
+                        basket={main.basket}
+                        itemArr={main.itemArr}
+                        deleteCard={deleteCard}
+                        changeCard={changeCard}
+                        sum={sum}
+                    />
+                </MainPage>
         )
     }
 }
