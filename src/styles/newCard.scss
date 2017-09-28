@@ -1,3 +1,5 @@
+$bordercolor: #dcdcdc;
+$buttoncolor: #4d4d4d;
 .container{
   margin-left: 76px;
 }
@@ -5,13 +7,15 @@
   display: flex;
   flex-direction: row;
 }
+.buttonAdd,.buttonSave,.buttonCancel,.formItem{
+  font-family: WorkSans;
+}
 .buttonAdd{
   width: 242px;
   height: 51px;
-  font-family: WorkSans;
   font-size: 22px;
   background-color: transparent;
-  border: 2px solid #dcdcdc;
+  border: 2px solid $bordercolor;
   border-radius: 2px;
   cursor: pointer;
   padding: 0;
@@ -22,19 +26,18 @@
 .buttonSave, .buttonCancel{
   width: 80px;
   height: 51px;
-  font-family: WorkSans;
   font-size: 18px;
   cursor: pointer;
   background-color: transparent;
   border: none;
-  color: #4d4d4d;
+  color: $buttoncolor;
   padding: 0;
   &:hover{
     opacity: 0.8;
   }
 }
 .buttonSave{
-  border-right: 1px solid #dcdcdc;;
+  border-right: 1px solid $bordercolor;
 }
 .spinner {
   width: 242px;
@@ -81,7 +84,7 @@
   height: 49px;
   position: relative;
   border-radius: 2px;
-  border: solid 1px #dcdcdc;
+  border: solid 1px $bordercolor;
   overflow: hidden;
   &:after{
     content: '\25bc';
@@ -104,10 +107,9 @@ select::-ms-expand {
 .formItem{
   width: 100%;
   height: 51px;
-  font-family: WorkSans;
   font-size: 16px;
   line-height: 1.64;
-  color: #4d4d4d;
+  color: $buttoncolor;
   border: 0;
   outline: none;
   padding: 14px 0 14px 20px;

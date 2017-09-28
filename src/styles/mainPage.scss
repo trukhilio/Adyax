@@ -57,7 +57,7 @@ $white: #ffffff;
   padding: 0;
 }
 
-.pictureContainer,.footer{
+.pictureContainer,.footer, .container{
   display:flex;
 }
 
@@ -70,7 +70,6 @@ $white: #ffffff;
 }
 
 .container{
-  display: flex;
   justify-content: flex-end;
   margin-top: 196px;
   background-color: $yellowcolor;
@@ -85,9 +84,9 @@ $white: #ffffff;
 
 .cardContainer{
   min-width: 1097px;
+  margin-bottom: -71px;
   position: relative;
   top: -147px;
-  margin-bottom: -71px;
   background-color: $white;
   box-shadow: 0 25px 54px 0 rgba(0, 0, 0, 0.11);
 }
