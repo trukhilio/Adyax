@@ -1,62 +1,154 @@
-let path = require('path');
-let webpack = require('webpack');
-let autoprefixer = require('autoprefixer');
-let precss = require('precss');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+const staticSourcePath = path.join(__dirname, 'static');
+const sourcePath = path.join(__dirname, 'src');
+const buildPath = path.join(__dirname, 'dist');
 
 module.exports = {
-    devtool: 'source-map',
-    entry: [
-        './src/index'
-    ],
+    devtool: 'cheap-module-source-map',
+    entry: {
+        app: path.resolve(sourcePath, 'index.js')
+    },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/dist/'
+        filename: '[name].[chunkhash].js',
+        publicPath: '/'
+    },
+    resolve: {
+        extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+        modules: [
+            sourcePath,
+            path.resolve(__dirname, 'node_modules')
+        ]
     },
     plugins: [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            compress: {
-                warnings: true
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.[chunkhash].js',
+            minChunks (module) {
+                return module.context && module.context.indexOf('node_modules') >= 0;
             }
         }),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true
+            },
+            output: {
+                comments: false
             }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    autoprefixer({
+                        browsers: [
+                            'last 3 version',
+                            'ie >= 10'
+                        ]
+                    })
+                ],
+                context: staticSourcePath
+            }
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new HtmlWebpackPlugin({
+            entry: 'index.js',
+            excludeChunks: ['base'],
+            minify: {
+                collapseWhitespace: true,
+                collapseInlineTagWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true
+            },
+            output: {
+                path: __dirname + '/dist',
+                filename: 'index_bundle.js'
+            }
+        }),
+        new PreloadWebpackPlugin({
+            rel: 'preload',
+            as: 'script',
+            include: 'all',
+            fileBlacklist: [/\.(css|map)$/, /base?.+/]
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: 'defer'
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].[contenthash].css',
+            allChunks: true
+        }),
+        new StyleExtHtmlWebpackPlugin({
+            minify: true
+        }),
+        new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+            threshold: 10240,
+            minRatio: 0.8
         })
     ],
     module: {
-        loaders: [
+        rules: [
             {
-                loaders: ['babel-loader'],
-                include: [
-                    path.resolve(__dirname, "src"),
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader'
                 ],
-                test: /\.js$/,
-                plugins: ['transform-runtime'],
+                include: sourcePath
             },
             {
                 test: /\.scss$/,
-                loaders: [
-                    'isomorphic-style-loader',
-                    'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:3]',
-                    'postcss-loader'
-                ]
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', options: { minimize: true } },
+                        'postcss-loader',
+                        'sass-loader'
+                    ]
+                })
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file?name=fonts/[name].[ext]'
+                test: /\.(eot?.+|svg?.+|ttf?.+|otf?.+|woff?.+|woff2?.+)$/,
+                use: 'file-loader?name=assets/[name]-[hash].[ext]'
             },
+
             {
                 test: /\.(png|jpe?g|gif)$/,
-                loader: "file-loader?name=img/img-[hash:6].[ext]"
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[path][name].[ext]'
+                        }
+                    }
+                ]
             }
         ]
-    },
-    postcss: function () {
-        return [autoprefixer, precss];
     }
 };
 
