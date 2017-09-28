@@ -90,3 +90,9 @@ $white: #ffffff;
   background-color: $white;
   box-shadow: 0 25px 54px 0 rgba(0, 0, 0, 0.11);
 }
+
+@media screen and (min-width: 1200px){
+  .cardContainer{
+    padding-right: 80px;
+  }
+}

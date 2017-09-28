@@ -82,11 +82,14 @@ $bordercolor: #dcdcdc;
   width: 39px;
   height: 39px;
   font-family: WorkSans-thin;
-  font-size: 26px;
+  font-size: 36px;
+  line-height: 1px;
   border-radius: 2px;
   border: solid 1px $bordercolor;
   background: transparent;
   padding: 0;
+  color: #4d4d4d;
+  overflow: hidden;
   &:hover{
     cursor: pointer;
     opacity: 0.8;
